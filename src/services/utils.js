@@ -1,8 +1,4 @@
-export function getWeatherData(formData){
-    const weather = fetch(`http://api.openweathermap.org/data/2.5/weather?q=${formData.city},${formData.country}&units=imperial&appid=${process.env.REACT_APP_API_KEY}`, {mode: "cors"})
-    .then(res => res.json())
-    return weather;
-}
+
 
 export function getWindDirection(degrees){
     if((degrees >= 348.75 && degrees <= 360) || (degrees >=0 && degrees < 11.25)){return "N"}
