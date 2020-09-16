@@ -26,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <h3>React Weather API</h3><i className="owi owi-01d"></i><br></br>
+        <h3>React Weather API</h3><br></br>
         <Route  path='/' render={(history) => 
           <InputForm
             history={history} 
