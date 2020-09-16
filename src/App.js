@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import InputForm from './components/InputForm/InputForm';
-import { getWeatherData, getWindDirection, getTimeFromTimestamp } from './services/utils';
+import { getWindDirection, getTimeFromTimestamp } from './services/utils';
 import { Route } from 'react-router-dom';
+import { getWeatherDataFromBackEnd } from './services/api-calls';
 
 class App extends Component {
   state = {
@@ -13,8 +14,8 @@ class App extends Component {
     sunset: ''
   }
 
-  handleGetWeatherData = async formData => {
-    const weatherData = await getWeatherData(formData);
+  handleGetWeatherDataFromBackEnd = async formData => {
+    const weatherData = await getWeatherDataFromBackEnd(formData);
     const windDirection = await getWindDirection(weatherData.wind.deg);
     const sunrise = await getTimeFromTimestamp(weatherData.sys.sunrise);
     const sunset = await getTimeFromTimestamp(weatherData.sys.sunset);
@@ -29,16 +30,15 @@ class App extends Component {
         <Route  path='/' render={(history) => 
           <InputForm
             history={history} 
-            handleGetWeatherData={this.handleGetWeatherData}
+            handleGetWeatherDataFromBackEnd={this.handleGetWeatherDataFromBackEnd}
           />
         }/>
-        <Route path='/weather' render={(history) =>
+        <Route path='/weather' render={() =>
           <WeatherCard 
             weatherData={this.state.weatherData}
             windDirection={this.state.windDirection}
             sunrise={this.state.sunrise}
             sunset={this.state.sunset}            
-            history={history}
           />
         }/>
       </>
